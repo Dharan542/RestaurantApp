@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./restaurantApp.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <a href="./restaurantApp.html">back to Home</a>
+        <div class="formDiv">
+            <div id="logRegDiv" >
+                <h1>Welcome</h1>
+                <button>Login</button>
+                <button>Register</button>
+            </div>
+            
+            <form name = "registerForm" onsubmit=objectCreator() hidden >
+                <h1>Register Your Restaurant Here...</h1>
+                <input type="text" name="name" placeholder="Full Name" required/><br/>
+               <input type="text" name="username" placeholder="Username" required/><br/>
+               <input type="password" name="password" placeholder="Password" required/><br/>
+               <input type="password" name="confirmpassword" placeholder="Confirm Password" required/><br/>
+               <input type="text" name="restaurantname" placeholder="Restaurant Name..." required/><br/>
+               <input type="text" name="location" placeholder="Restaurant Location" required/><br/>
+               <input type="text" name="contactno" placeholder="Contact" maxlength="10" required/><br/>
+               <button  name="btn">Submit</button>
+            </form>
+
+            <form name="loginForm" onsubmit="return false" hidden>
+                <h1>Login Here...</h1>
+                <input type="text" name="lUsername" placeholder="Username" required/><br/>
+                <input type="password" name="lPassword" placeholder="Password" required/><br/>
+                <button name="btn">Submit</button>
+            </form>
+
+            <form onsubmit="return false" id="detailsForm" hidden>
+                <h1>Fill your Restaurant Details</h1>
+                  <table id="addMenuTable">
+                      <tr>
+                          <td>Food Name</td>
+                          <td>Type</td>
+                          <td>Rate</td>
+                      </tr>
+                      <tr id="firstMenuRow">
+                        <td><input type="text" name="foodname"/></td>
+                        <td><select name="foodtype" id="select">
+                                <option></option>
+                                <option>Veg</option>
+                                <option>Non Veg</option>
+                            </datalist>
+                        </select></td>
+                        <td><input type="number" name="foodrate"/></td>
+                    </tr>
+                      
+                  </table>
+                  <button>Remove</button>
+                  <button>Add Menu</button>
+                  <button>Submit</button>
+            </form>
+            <h1 hidden id="finalUpdateTag">Successfully Updated!</h1>
+        </div>
+        <!-- <input/> -->
+</body>
+<script src="./rRegisterPage.js" type="text/javascript"></script>
+</html>
