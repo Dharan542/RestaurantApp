@@ -1,11 +1,9 @@
 
 var data = localStorage.FormData.split(",")
-// console.log(document.querySelectorAll('table'))
 var tableSections = document.querySelectorAll('table')
 var arr = ["Registered","Accepted","Rejected"]
 var i =0;
 for(let x of tableSections){
-    console.log(x)
     x.id = `${arr[i]}`
     var headRow = document.createElement('tr')
     for(let y of data ){
@@ -13,11 +11,10 @@ for(let x of tableSections){
         newCol.innerHTML = `${y}`;
         headRow.append(newCol);
       }
-    if(x.id=='Registered'){
         var v = document.createElement('td')
         v.innerHTML = "Status";
         headRow.append(v)
-    }
+    
     x.append(headRow);
     i++;
 }
@@ -29,7 +26,6 @@ keys.forEach((element,value) => {
     for(let x in element){
         var newRow = document.createElement('tr');
         newRow.id = `${value}`
-        console.log(newRow.id)
         for(let y in element[x]){
             if(y!=='password' && y!=='confirmpassword'){
                 var registeredDetails = document.createElement('td')
@@ -47,12 +43,8 @@ keys.forEach((element,value) => {
         statusCol.append(acceptBtn)
         statusCol.append(rejectBtn)
         newRow.append(statusCol)
-    
         Registered.append(newRow)
 })
-
-// localStorageDataTracker()
-// }
 
 Registered.onclick = function(e){
     targetRow = e.target.closest('tr');
@@ -63,46 +55,82 @@ Registered.onclick = function(e){
     targetBtn.innerHTML == 'Accept'? currentDataPusher("Accepted","Registered"):currentDataPusher("Rejected","Registered");
 }
 
-function currentDataPusher(register,reject){
+function currentDataPusher(btnName,register){
     targetRow.hidden = true;
     try{
-       var restaurantData = JSON.parse(localStorage[register]);
+       var restaurantData = JSON.parse(localStorage[btnName]);
        }
    catch(err){
        var restaurantData = [];
     }
        restaurantData.push(keys[id])
-       localStorage[register] = JSON.stringify(restaurantData);
+       localStorage[btnName] = JSON.stringify(restaurantData);
        keys.splice(id,1)
-       localStorage[reject] = JSON.stringify(keys);
+       localStorage[register] = JSON.stringify(keys);
        location.reload()
 }
-// localStorage.removeItem("Rejected")
 
-// var arr = [8,6,9,5]
-
-var arr1 = ["Accepted","Rejected"];
-for(let i of arr1){
-    var currnElement = document.getElementById(i);
-    try{
-        var nkeys = JSON.parse(localStorage[i])
-    }
-    catch(err){
-        var nkeys = [];
-    }
-    nkeys.forEach((element,value) => {
-        for(let x in element){
-            var newRow = document.createElement('tr');
-            newRow.id = `${value}`
-            for(let y in element[x]){
-                if(y!=='password' && y!=='confirmpassword'){
-                    var registeredDetails = document.createElement('td')
-                    registeredDetails.innerHTML = `${element[x][y]}`
-                    newRow.append(registeredDetails)
-                }
-            }
+    var arr1 = ["Accepted","Rejected"];
+    for(let i of arr1){
+        var currnElement = document.getElementById(i);
+        try{
+            var nkeys = JSON.parse(localStorage[i])
         }
-            currnElement.append(newRow)
-    })
-}
+        catch(err){
+            var nkeys = [];
+        }
+        nkeys.forEach((element,value) => {
+            for(let x in element){
+                var newRow = document.createElement('tr');
+                newRow.id = `${value}`
+                for(let y in element[x]){
+                    if(y!=='password' && y!=='confirmpassword'){
+                        var registeredDetails = document.createElement('td')
+                        registeredDetails.innerHTML = `${element[x][y]}`
+                        newRow.append(registeredDetails)
+                    }
+                }
+                var statusCol = document.createElement('td')
+                var removeBtn = document.createElement('button')
+                removeBtn.innerHTML = "Remove"
+                removeBtn.onclick = (e)=> {
+                    let deletionRestaurantName = e.target.closest('tr').cells[2].innerHTML
+                    let deleteFoodList = JSON.parse(localStorage.Foodlist)
+                    delete deleteFoodList[deletionRestaurantName]
+                    localStorage["Foodlist"] = JSON.stringify(deleteFoodList)
+                    let currTable = e.target.closest('table').id
+                    let updateList = JSON.parse(localStorage[currTable])
+                    updateList.splice(value,1)
+                    localStorage[currTable] = JSON.stringify(updateList)
+                    location.reload()
+                }
+                statusCol.append(removeBtn)
+                newRow.append(statusCol)
+            }
+                currnElement.append(newRow)
+        })
+    }
+//    let arr2 = [1,2,3,4,5]
 
+//    arr2.map((item)=>{item*2})
+//    arr2.forEach((item)=>{item*2})
+//    console.log(arr2)
+
+    let obj = {
+        name:"Dharan",
+        age:21,
+        }
+    console.log(obj.name)
+
+    export default obj;
+
+    // const person = {
+    //     firstName:"John",
+    //     lastName: "Doe",
+    //     display: function () {
+    //       console.log(this.firstName + " " + this.lastName);
+    //     }
+    //   }
+    // //   let disp = person.display
+    //   console.log(this)
+    //   setTimeout(person.display.bind(person), 3000);

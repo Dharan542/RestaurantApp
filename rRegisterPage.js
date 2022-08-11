@@ -166,14 +166,14 @@ menuForm.onclick = (e)=>{
            }
            else{
             if(confirm("Are you sure want to save?")){
-                updatedFood[rName]=FoodArr
+                updatedFood[rName]={["menu"]:FoodArr}
                 console.log(updatedFood)
                 
                     detailsForm.hidden = true
                     finalUpdateTag.hidden = false
                     try{
                         var newFood = JSON.parse(localStorage["Foodlist"])
-                        newFood[rName] = FoodArr
+                        newFood[rName]= {["menu"]:FoodArr}
                         console.log(newFood)
                     }
                     catch(err){
